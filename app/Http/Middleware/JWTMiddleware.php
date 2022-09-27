@@ -17,7 +17,7 @@ class JWTMiddleware
         //
     }
 
-    public function handle(Request $request, Closure $next): Response|RedirectResponse
+    public function handle(Request $request, Closure $next)
     {
         $bearer = $request->bearerToken();
 
@@ -38,7 +38,7 @@ class JWTMiddleware
                 }
             }
         } catch (Exception $e) {
-            return \response('Not authorized - '.$e->getMessage(), 401);
+            return \response()->json('Not authorized - '.$e->getMessage(), 401);
         }
     }
 }

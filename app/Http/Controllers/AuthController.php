@@ -48,7 +48,7 @@ class AuthController extends Controller
         $payload = [
             'sub' => $sub,
             'iat' => $iat,
-            'exp' => time() + (2 * 7 * 24 * 60 * 60),
+            'exp' => time() + (60 * 60),
             'nbf' => $iat,
             'iss' => config('app.url'),
             'jti' => md5($sub . $iat),

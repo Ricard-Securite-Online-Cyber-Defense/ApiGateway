@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Http;
 
 class FrisbeeController extends Controller
 {
@@ -10,10 +11,44 @@ class FrisbeeController extends Controller
 
     public function __construct()
     {
-        $this->apiUrl = config('services.microservices.frisbee');
+        $this->apiUrl = 'http://localhost:3001';
     }
 
     public function index(){
-        return 'Hello from FrisbeeController';
+        $res = Http::withHeaders([
+            'accept' => 'application/json',
+            'content-type' => 'application/json',
+        ])
+        ->post($this->apiUrl);
+
+        return response()->json($res);
+    }
+
+    public function update(){
+        $res = Http::withHeaders([
+            'accept' => 'application/json',
+            'content-type' => 'application/json'
+        ])->patch($this->apiUrl);
+
+        return response()->json($res);
+    }
+
+    public function create(){
+        $res = Http::withHeaders([
+            'accept' => 'application/json',
+            'content-type' => 'application/json'
+        ])->post($this->apiUrl);
+
+        return response()->json($res);
+    }
+
+    public function delete(){
+        $res = Http::withHeaders([
+            'accept' => 'application/json',
+            'content-type' => 'application/json'
+        ])
+        ->delete($this->apiUrl);
+
+        return response()->json($res);
     }
 }
