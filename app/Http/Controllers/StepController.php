@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 
-class FrisbeeController extends Controller
+class StepController extends Controller
 {
     private string $apiUrl;
 
