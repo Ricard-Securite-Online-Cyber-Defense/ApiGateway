@@ -125,8 +125,6 @@ return [
 
     'cipher' => 'AES-256-CBC',
 
-    'jwt_key' => env('JWT_SECRET'),
-
     /*
     |--------------------------------------------------------------------------
     | Maintenance Mode Driver
@@ -213,5 +211,21 @@ return [
     'aliases' => Facade::defaultAliases()->merge([
         // 'ExampleClass' => App\Example\ExampleClass::class,
     ])->toArray(),
+
+    /*
+     * JWT key
+     */
+    'jwt_key' => env('JWT_SECRET'),
+
+
+    /*
+     * MS User URL
+     */
+    'ms_user_url' => env('MS_USER_URL'),
+
+    /*
+     * MS User URL
+     */
+    'ms_frisbee_url' => env('MS_FRISBEE_URL'),
 
 ];

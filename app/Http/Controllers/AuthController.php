@@ -12,7 +12,7 @@ class AuthController extends Controller
 
     public function __construct()
     {
-        $this->apiUrl = "http://localhost:3000";
+        $this->apiUrl = config('app.ms_user_url');
     }
 
     public function login(Request $request)
@@ -23,15 +23,12 @@ class AuthController extends Controller
         ]);
 
         $res = Http::withHeaders([
-                'accept' => 'application/json',
-                'content-type' => 'application/json',
-            ])
-            ->post('http://localhost:3000', [
-                "email" => $request->email,
-                "password" => $request->password
-            ]);
+            'accept' => 'application/json',
+            'content-type' => 'application/json',
+        ])
+            ->post($this->apiUrl, $request->all());
 
-        if($res->status() === 200) {
+        if ($res->status() === 200) {
             $jwt = $this->makeJWT($res->body());
 
             return response()->json([
@@ -42,7 +39,8 @@ class AuthController extends Controller
         return response(null, 401);
     }
 
-    private function makeJWT($sub) {
+    private function makeJWT($sub)
+    {
         $key = config('app.jwt_key');
         $iat = time();
         $payload = [

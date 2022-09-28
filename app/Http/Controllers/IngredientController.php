@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 
@@ -11,52 +12,44 @@ class IngredientController extends Controller
 
     public function __construct()
     {
-        $this->apiUrl = 'http://localhost:3001';
+        $this->apiUrl = config('app.ms_frisbee_url')."/ingredient";
     }
 
-    public function index(){
-        $res = Http::withHeaders([
+    public function index()
+    {
+        return Http::withHeaders([
             'accept' => 'application/json',
             'content-type' => 'application/json',
-        ])->post($this->apiUrl);
-
-        return response()->json($res);
+        ])->get($this->apiUrl)->json();
     }
 
-    public function update(int $id){
+    public function update(int $id, Request $request)
+    {
 
         // AJOUTER VALIDATE
 
-        $res = Http::withHeaders([
+        return Http::withHeaders([
             'accept' => 'application/json',
             'content-type' => 'application/json'
-        ])->patch($this->apiUrl. '/'.$id, [
-            // AJOUTER PARAMS
-        ]);
-
-        return response()->json($res);
+        ])->put($this->apiUrl. '/'.$id, $request->all())->json();
     }
 
-    public function create(){
+    public function create(Request $request)
+    {
 
         // AJOUTER VALIDATE
 
-        $res = Http::withHeaders([
+        return Http::withHeaders([
             'accept' => 'application/json',
             'content-type' => 'application/json'
-        ])->post($this->apiUrl, [
-            // AJOUTER PARAMS
-        ]);
-
-        return response()->json($res);
+        ])->post($this->apiUrl, $request->all())->json();
     }
 
-    public function delete(int $id){
-        $res = Http::withHeaders([
+    public function delete(int $id)
+    {
+        return Http::withHeaders([
             'accept' => 'application/json',
             'content-type' => 'application/json'
-        ])->delete($this->apiUrl. '/'.$id);
-
-        return response()->json($res);
+        ])->delete($this->apiUrl. '/'.$id)->json();
     }
 }
